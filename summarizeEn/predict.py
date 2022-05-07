@@ -66,7 +66,7 @@ def preprocess(text):
 
     paragraph_list = [text]
     # if len(text) > model.config.encoder.max_position_embeddings:
-    if len(text) > 512:
+    if len(text.split()) > 400:
         paragraph_list = []
         
         paragraph = ""
@@ -76,11 +76,11 @@ def preprocess(text):
 
             new_len = len(paragraph.split()) + len(sentences[i].split())
 
-            if new_len < 512:
+            if new_len < 400 and i != len(sentences)-1:
                 paragraph += " " + sentences[i]
             else:
                 paragraph_list.append(paragraph)
-                paragraph = ""
+                paragraph = sentences[i]
         
 
     return paragraph_list
